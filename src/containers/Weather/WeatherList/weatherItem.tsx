@@ -1,23 +1,33 @@
 import React from 'react';
 
 import { getImageLink } from "../../../helpers/weatherFunc"
+import { get } from "../../../helpers/helperFunc"
 
 import { weatherItemType } from "../../../types/weatherTypes";
 import styles from "./style.module.css";
 
+type PropsType = {
+    item: weatherItemType,
+    isActive: boolean,
+    dayOfItem: string,
+    onChangeCurrent: (ite: weatherItemType) => void
+}
 
-const Dashboard: React.FunctionComponent<weatherItemType & { dayOfItem: string }> = (props) => {
-    const { weather } = props
+const Item: React.FunctionComponent<PropsType> = (props) => {
+    const { item, onChangeCurrent, dayOfItem, isActive } = props;
+
     return (
-        <div className={styles.weatherItemLayout}>
-            <div className={styles.dayOfItem}>{props.dayOfItem}</div>
+        <div className={isActive ? styles.weatherItemLayoutActive : styles.weatherItemLayout}
+            onClick={() => onChangeCurrent(item)}
+        >
+            <div className={styles.dayOfItem}>{dayOfItem}</div>
             <div className={styles.imgOfItem}>
-                <img src={getImageLink(weather[0].icon)} alt="" />
+                <img src={getImageLink(item.weather[0].icon)} alt="" />
             </div>
-            <div className={styles.maxTemp}>{Math.round(props.temp.max)}°</div>
-            <div className={styles.minTemp}>{Math.round(props.temp.min)}°</div>
+            <div className={styles.maxTemp}>{Math.round(item.temp.max)}°</div>
+            <div className={styles.minTemp}>{Math.round(item.temp.min)}°</div>
         </div>
     );
 };
 
-export default Dashboard;
+export default Item;

@@ -7,6 +7,7 @@ type langType<T> = {
     Wind?: T,
     AirQuality?: T,
     InputPlaceHolderSearch?: T,
+    notFoundLocation?: T,
 }
 
 const rules: langType<{ en: string, vi: string, default: string }> = {
@@ -39,6 +40,11 @@ const rules: langType<{ en: string, vi: string, default: string }> = {
         en: 'Please input search field',
         vi: 'nhập vào ô tìm kiếm',
         default: 'Please input search field'
+    },
+    notFoundLocation: {
+        en: 'We could not find weather information for the location above',
+        vi: '',
+        default: 'We could not find weather information for the location above'
     },
 };
 const i18n: langType<string> = {};

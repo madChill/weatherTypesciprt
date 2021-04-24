@@ -13,3 +13,30 @@
     border-radius: 4px;
     font-size: 18px;
 }
+
+.contentNotFound {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #333333;
+}
+
+.imgNotFoundLayout {
+    width: 100%;
+    text-align: center;
+}
+
+.imgNotFound {
+    /* background: #555555; */
+    /* color: #555555;   */
+    margin: 60px auto 0;
+}
+
+.isLoading {
+    font-size: 20px;
+    text-align: center;
+    padding: 40px 0;
+}

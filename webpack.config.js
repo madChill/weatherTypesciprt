@@ -59,7 +59,6 @@ module.exports = {
             minSize: 15000
         }
     },
-    devtool: 'inline-source-map',
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
@@ -71,12 +70,5 @@ module.exports = {
         new CopyPlugin({
             patterns: [{ from: 'public', to: 'public' }]
         })
-    ],
-    devServer: {
-        contentBase: path.join(__dirname, './dist'),
-        compress: true,
-        hot: true,
-        port: 8080,
-        writeToDisk: true
-    }
+    ]
 };

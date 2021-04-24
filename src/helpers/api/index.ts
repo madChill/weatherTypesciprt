@@ -8,7 +8,7 @@ const instance = axios.create({
 
 export default instance;
 export type WeatherApiRouteListType = {
-    getGeo(payload: AxiosRequestConfig): Promise<AxiosResponse<geoType>>,
+    getGeo(payload: AxiosRequestConfig): Promise<AxiosResponse<geoType[]>>,
     oneCall(payload: AxiosRequestConfig): Promise<AxiosResponse<WeatherLocationType>>,
     airPollution(payload: AxiosRequestConfig): Promise<AxiosResponse<AirPollution>>,
     search(payload: AxiosRequestConfig): any,

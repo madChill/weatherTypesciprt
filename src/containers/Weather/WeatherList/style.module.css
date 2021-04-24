@@ -9,6 +9,13 @@
     flex-grow: 1;
 }
 
+.weatherItemLayoutActive {
+    height: 143px;
+    background: #F7F7F7;
+    border: 1px solid rgba(150, 150, 150, 0.3);
+    flex-grow: 1;
+}
+
 .dayOfItem {
     font-family: Roboto;
     font-style: normal;

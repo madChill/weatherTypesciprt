@@ -1,68 +1,85 @@
-import { Dispatch, Action, bindActionCreators } from 'redux';
-import { keyReducer as key } from '../../helpers/config';
+import { GlobalStore } from './../../types/storeType';
 import { searchWeather, getOneCall } from './thunk';
-import { WeatherGeoStateType, ActionType, WeatherGeoActionType, geoType } from "../../types/weatherTypes";
+import {
+    WeatherGeoStateType, ActionType, WeatherStoreActionType,
+    ThunkDispatchWeather, SearchWeatherParam, OneCallParam
+} from "../../types/weatherTypes";
 
 export const INITIAL_STATE: WeatherGeoStateType = {
     geo: { name: "" },
     loading: false,
-    error: null
+    unit: 'imperial'
 };
 
 //action
 export const ActionList: ActionType<string> = {
-    GET_GEO: 'GET_GEO',
-    GET_ONE_CALL: 'GET_ONE_CALL',
-    LOADING: 'LOADING',
-    GET_AIR_POLLUTION: 'GET_AIR_POLLUTION',
+    WEATHER_GET_GEO: 'WEATHER_GET_GEO',
+    WEATHER_GET_ONE_CALL: 'WEATHER_GET_ONE_CALL',
+    WEATHER_LOADING: 'WEATHER_LOADING',
+    WEATHER_GET_AIR_POLLUTION: 'WEATHER_GET_AIR_POLLUTION',
+    WEATHER_CHANGE_CURRENT: 'WEATHER_CHANGE_CURRENT',
+    WEATHER_LOADING_FAILED_NOT_FOUND: 'WEATHER_LOADING_FAILED_NOT_FOUND',
 };
-// let action: ActionType<() => {}>;
-export const action: ActionType<(payload: WeatherGeoStateType) => {}> = {
-    GET_GEO: (payload: WeatherGeoStateType) => ({
-        type: key.weather + ActionList.GET_GEO,
+type ListOfActionType<T> = (payload: T) => WeatherStoreActionType
+export const action: ActionType<ListOfActionType<WeatherGeoStateType>> = {
+    WEATHER_GET_GEO: (payload: WeatherGeoStateType) => ({
+        type: ActionList.WEATHER_GET_GEO,
         payload
     }),
-    GET_ONE_CALL: (payload: WeatherGeoStateType) => ({
-        type: key.weather + ActionList.GET_ONE_CALL,
+    WEATHER_GET_ONE_CALL: (payload: WeatherGeoStateType) => ({
+        type: ActionList.WEATHER_GET_ONE_CALL,
         payload
     }),
-    GET_AIR_POLLUTION: (payload: WeatherGeoStateType) => ({
-        type: key.weather + ActionList.GET_ONE_CALL,
+    WEATHER_GET_AIR_POLLUTION: (payload: WeatherGeoStateType) => ({
+        type: ActionList.WEATHER_GET_AIR_POLLUTION,
         payload
     }),
-    LOADING: (payload: WeatherGeoStateType) => ({
-        type: key.weather + ActionList.LOADING,
+    WEATHER_LOADING: (payload: WeatherGeoStateType) => ({
+        type: ActionList.WEATHER_LOADING,
+        payload
+    }),
+    WEATHER_CHANGE_CURRENT: (payload: WeatherGeoStateType) => ({
+        type: ActionList.WEATHER_CHANGE_CURRENT,
+        payload
+    }),
+    WEATHER_LOADING_FAILED_NOT_FOUND: (payload: WeatherGeoStateType) => ({
+        type: ActionList.WEATHER_LOADING_FAILED_NOT_FOUND,
         payload
     })
 }
 
 //reducer
-export const reducer = (state: WeatherGeoStateType = INITIAL_STATE, payload: WeatherGeoActionType):
+export const reducer = (state: WeatherGeoStateType = INITIAL_STATE, action: WeatherStoreActionType):
     WeatherGeoStateType => {
-    switch (payload.type) {
-        case ActionList.LOADING:
-            return { ...state, loading: payload.loading };
-        case ActionList.GET_GEO:
-            return { ...state, geo: payload.geo };
-        case ActionList.GET_ONE_CALL:
-            return { ...state, oneCall: payload.oneCall };
-        case ActionList.GET_AIR_POLLUTION:
-            return { ...state, air: payload.air };
+    switch (action.type) {
+        case ActionList.WEATHER_LOADING:
+            return { ...state, loading: action.payload.loading };
+        case ActionList.WEATHER_LOADING_FAILED_NOT_FOUND:
+            return { ...state, error: action.payload.error };
+        case ActionList.WEATHER_GET_GEO:
+            return { ...state, geo: action.payload.geo };
+        case ActionList.WEATHER_GET_ONE_CALL:
+            return { ...state, oneCall: action.payload.oneCall };
+        case ActionList.WEATHER_GET_AIR_POLLUTION:
+            return { ...state, air: action.payload.air };
+        case ActionList.WEATHER_CHANGE_CURRENT:
+            return { ...state, current: action.payload.current };
         default:
             return state;
     }
 };
 
 // mapping
-export const mapStateToProps = (state: WeatherGeoStateType) => {
+export const mapStateToProps = (state: GlobalStore) => {
     return {
-        // [key.weather]: state[key.weather]
+        error: state.WEATHER.error,
+        loading: state.WEATHER.loading
     };
 };
 
-export const mapDispatchToProps = (dispatch: Dispatch) => {
-    return bindActionCreators({
-        searchWeather,
-        getOneCall
-    }, dispatch)
+export const mapDispatchToProps = (dispatch: ThunkDispatchWeather) => {
+    return {
+        searchWeather: (param: SearchWeatherParam) => dispatch(searchWeather(param)),
+        getOneCall: (param: OneCallParam) => dispatch(getOneCall(param)),
+    }
 };

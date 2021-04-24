@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import Routes from './containers/app';
 import storeConfig, { history } from "./helpers/store";
 
-const store = storeConfig();
+export const store = storeConfig();
 export default class App extends Component {
   render() {
     return (

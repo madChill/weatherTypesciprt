@@ -33,3 +33,4 @@ export const getImageLink: (ico: string, typeIco?: string) => string = (ico, typ
     return `http://openweathermap.org/img/wn/${ico}${typeIco ? typeIco : ''}.png`
     // @2x
 }
+
