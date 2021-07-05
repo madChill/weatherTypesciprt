@@ -74,11 +74,9 @@ module.exports = {
     ],
     devServer: {
         contentBase: path.join(__dirname, './dist'),
-        compress: true,
-
-        
+        // compress: true,
         hot: true,
         port: 3000,
-        writeToDisk: true
+        // writeToDisk: true
     }
 };

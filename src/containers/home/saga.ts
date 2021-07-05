@@ -5,7 +5,7 @@ import FruitsType from "../../interfaces/fruits"
 import ApiRouteList, { fetchLyrics, getFruits } from "../../utils/api"
 
 import actions from './actions';
-import { FruitActionType, stateType, GetLyricsAction } from "./type"
+import { ActionType, GetLyricsAction } from "./type"
 
 function* onLoadLyrics({ artist, song }: GetLyricsAction) {
     try {
@@ -17,7 +17,7 @@ function* onLoadLyrics({ artist, song }: GetLyricsAction) {
     }
 }
 
-export function* getFruitsRequest({ payload }: FruitActionType) {
+export function* getFruitsRequest({ payload }: ActionType<{ name: string }>) {
     try {
         yield put(actions.getFruits.request());
         const showcasesdata: AxiosResponse<FruitsType[]> = yield call(getFruits, payload);

@@ -7,18 +7,8 @@
       "es6"
     ],
     "outDir": "./dist/",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "es6",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": false,
     "jsx": "react",
-    "downlevelIteration": true,
-    "noImplicitAny": false
+    "esModuleInterop": true,
   },
   "include": [
     "src"

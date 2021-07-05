@@ -23,7 +23,6 @@ export default {
 }
 
 export const getFruits = (payload: { name: string }): Promise<AxiosResponse<FruitsType[]>> => {
-    // payload.params = { ...payload.params, appid: apiKey, }
     return instance.get(`${api}/fruits`, {})
 };
 export async function fetchLyrics(
