@@ -1,17 +1,27 @@
-import { Action } from 'redux'
+import { AxiosResponse } from "axios";
+
 import { takeLatest, put, call } from 'redux-saga/effects';
-// import { TakeableChannel } from "redux-saga/core"
-// import { get } from 'lodash';
-import ApiRouteList from "../../utils/api"
+import FruitsType from "../../interfaces/fruits"
+import ApiRouteList, { fetchLyrics, getFruits } from "../../utils/api"
 
 import actions from './actions';
-import { actionType } from "./type"
+import { FruitActionType, stateType, GetLyricsAction } from "./type"
 
-export function* getFruitsRequest({ payload }: actionType) {
+function* onLoadLyrics({ artist, song }: GetLyricsAction) {
     try {
         yield put(actions.getFruits.request());
-        const showcasesdata = yield call(ApiRouteList.getFruits, payload);
-        yield put(actions.getFruits.success(showcasesdata));
+        const { data } = yield call(fetchLyrics, artist, song);
+        yield put(actions.getFruits.success(data.lyrics));
+    } catch (error) {
+        yield put(actions.getFruits.failure(error.response.data.error));
+    }
+}
+
+export function* getFruitsRequest({ payload }: FruitActionType) {
+    try {
+        yield put(actions.getFruits.request());
+        const showcasesdata: AxiosResponse<FruitsType[]> = yield call(getFruits, payload);
+        yield put(actions.getFruits.success(showcasesdata.data));
         // yield put(msgQueue.show({ severity: 'success', text: 'Thao tác thành công' }));
     } catch (err) {
         yield put(actions.getFruits.failure(err));

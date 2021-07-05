@@ -1,17 +1,23 @@
 import React from "react";
-
-import { useInjectReducer, useInjectSaga } from "redux-injectors";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
 import { key } from "./const"
-import reducer from "./reducers";
-import saga from "./saga"
+import actions from "./actions"
+import { FruitActionType } from "./type"
 
-type PropsType = {}
-const Home: React.FunctionComponent<PropsType> = () => {
-    useInjectReducer({ key, reducer });
-    useInjectSaga({ key, saga });
-
+type PropsType = {
+    onSearch(name: string): void;
+}
+const Home: React.FunctionComponent<PropsType> = ({ onSearch }) => {
+    React.useEffect(() => {
+        onSearch("test")
+    }, [])
     return <div>hello world</div>
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch: Dispatch<FruitActionType>) => ({
+    onSearch: (name: string) => dispatch(actions.getFruits.trigger({ name })),
+});
+export default connect(null, mapDispatchToProps)(Home);
+

@@ -14,7 +14,8 @@ type ListRouteFuncType = {
     failure: <T>(payload?: T) => { type: string, payload?: T },
     fullfil: <T>(payload?: T) => { type: string, payload?: T },
 }
-export function createRoutine<T>(key: string): { [key in keyof ListRouteType]?: string } & ListRouteFuncType {
+export function createRoutine<T>({ key, payload }: { key: string, payload?: T }):
+    (ListRouteType & ListRouteFuncType) {
     return {
         TRIGGER: key + ListRoute.TRIGGER,
         trigger: createRoutineCreator(key + ListRoute.TRIGGER),

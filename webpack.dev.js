@@ -5,7 +5,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.tsx',
+    entry: ['@babel/polyfill', './src/index.tsx'],
     cache: false,
     module: {
         rules: [
@@ -18,7 +18,7 @@ module.exports = {
                         presets: [
                             '@babel/preset-env',
                             '@babel/preset-react',
-                            '@babel/preset-typescript'
+                            '@babel/preset-typescript',
                         ]
                     }
                 }
