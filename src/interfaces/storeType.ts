@@ -1,4 +1,4 @@
-import { keyReducer } from "../helpers/config"
+import { keyReducer } from "../utils/config"
 import { WeatherGeoStateType } from './weatherTypes'
 
 

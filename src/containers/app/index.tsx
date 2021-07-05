@@ -3,7 +3,7 @@ import { Switch, Redirect, withRouter, Route } from 'react-router-dom';
 
 import MainLayout from '../../components/layouts';
 
-const Dashboard = lazy(() => import('../Weather'));
+const Dashboard = lazy(() => import('../home'));
 import "./fontRoboto.css"
 
 const Routes = (props: { location: any }) => {
